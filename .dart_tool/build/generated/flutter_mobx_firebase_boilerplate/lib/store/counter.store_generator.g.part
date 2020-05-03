@@ -36,6 +36,26 @@ mixin _$Counter on CounterStoreBase, Store {
   }
 
   @override
+  Future<void> addCounter() {
+    final _$actionInfo = _$CounterStoreBaseActionController.startAction();
+    try {
+      return super.addCounter();
+    } finally {
+      _$CounterStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  Stream<void> getCounter() {
+    final _$actionInfo = _$CounterStoreBaseActionController.startAction();
+    try {
+      return super.getCounter();
+    } finally {
+      _$CounterStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string = 'count: ${count.toString()}';
     return '{$string}';

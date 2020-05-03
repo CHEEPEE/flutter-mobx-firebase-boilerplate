@@ -111,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: CounterStore.incrementCount,
+          onPressed: CounterStore.addCounter,
           tooltip: 'Increment',
           child: Icon(Icons.add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
