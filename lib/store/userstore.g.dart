@@ -60,12 +60,40 @@ mixin _$User on UserStoreBase, Store {
     }, _$_userEmailAtom, name: '${_$_userEmailAtom.name}_set');
   }
 
+  final _$getUserAsyncAction = AsyncAction('getUser');
+
+  @override
+  Future<void> getUser() {
+    return _$getUserAsyncAction.run(() => super.getUser());
+  }
+
   final _$registerAsyncAction = AsyncAction('register');
 
   @override
   Future<void> register(dynamic _emailController, dynamic _passwordController) {
     return _$registerAsyncAction
         .run(() => super.register(_emailController, _passwordController));
+  }
+
+  final _$loginAsyncAction = AsyncAction('login');
+
+  @override
+  Future<void> login(dynamic _emailController, dynamic _passwordController) {
+    return _$loginAsyncAction
+        .run(() => super.login(_emailController, _passwordController));
+  }
+
+  final _$UserStoreBaseActionController =
+      ActionController(name: 'UserStoreBase');
+
+  @override
+  void signOut() {
+    final _$actionInfo = _$UserStoreBaseActionController.startAction();
+    try {
+      return super.signOut();
+    } finally {
+      _$UserStoreBaseActionController.endAction(_$actionInfo);
+    }
   }
 
   @override

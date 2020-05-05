@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_mobx_firebase_boilerplate/store/userstore.dart';
 import './store/counter.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -13,27 +15,12 @@ class MyHomePage extends StatefulWidget {
   // case the title) provided by the parent (in this case the App widget) and
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
-
   final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -43,13 +30,11 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Observer(builder: (_) {
-      return Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
+      return CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          middle: Text(widget.title),
         ),
-        body: Center(
+        child: Center(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
           child: Column(
@@ -69,20 +54,26 @@ class _MyHomePageState extends State<MyHomePage> {
             // horizontal).
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                'You have pushed the button this many times:',
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text('You have pushed the button this many times:',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4
+                        .copyWith(fontSize: 10.0)),
               ),
               Text(
                 '${CounterStore.count}',
                 style: Theme.of(context).textTheme.headline4,
               ),
+              CupertinoButton(
+                child: Text('Increment'),
+                onPressed: CounterStore.addCounter,
+              ),
+              CupertinoButton.filled(
+                  child: Text('Sign Out'), onPressed: UserStore.signOut)
             ],
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: CounterStore.addCounter,
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
       );
     });
